@@ -1,0 +1,105 @@
+﻿@model EmployeeViewModel
+
+<div class="text-center">
+    @if(User.IsInRole("Employee")){
+        @await Component.InvokeAsync("LoginSuccess");
+    }
+    <div class="row">
+        <div class="col-4">
+        <div class="card">
+            <img class="card-img-top" src="https://avatar.iran.liara.run/public" alt="Emp Image" asp-append-version="true" />
+            <div class="card-body">
+                <h5 class="card-title">Employee</h5>
+                <p>Name: @Model.Name</p>
+                <p>Department: @Model.Department</p>
+                <p>Email: @Model.Email</p>
+             
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back</a>
+                
+            </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <h4>Task List</h4>
+
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Work To Do</th>
+                        <th scope="col">Remarks</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                @* data will be appended by the AJAX  *@
+                <tbody id="taskTableBody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+    
+    
+    </div>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    /// AJAX requests
+
+
+    //updateStatus of the task to done 
+     function updateStatus(taskId) {
+        if(window.confirm("Do you Want to mark this task as Done")){
+        $.ajax({
+            url: '@Url.Action("UpdateWorkStatus", "EmployeeWork")', // Adjust to your controller and action names
+            type: 'POST',
+            data: { id: taskId },
+            success: function (response) {
+                if(response>0){
+                    alert('Task status successfully updated to Done');
+                    gettaskdata(@Model.Id);
+                }
+            },
+            error: function () {
+                alert('Error updating the task status');
+            }
+        });
+        }
+    }
+
+    //Get all work data od employee with employee id
+
+    function gettaskdata(empId){
+    $.ajax({
+    url:'@Url.Action("GetEmpWorkList","EmployeeWork")',
+    type:'GET',
+    dataType:'json',
+    data:{
+        Id : empId
+    },
+       success: function (data) {
+           console.table(data);
+                    var html = '';
+                    // Loop through each task in the returned JSON array
+                    $.each(data, function (index, task) {
+                        html += '<tr>';
+                        html += '<td>' + task.todoTask + '</td>';
+                        html += '<td>' + task.remarks + '</td>';
+                        html += '<td>' + task.workStatus + '</td>';
+                        // Button to update task status (calls a separate function)
+                        html += '<td><button class="btn btn-sm btn-info" onclick="updateStatus(' + task.id + ')">Update Status</button></td>';
+                        html += '</tr>';
+                    });
+                    // Inject the built HTML into the table body
+                    $('#taskTableBody').html(html);
+                },
+                error: function (xhr, status, error) {
+                    alert('Error fetching tasks');
+                }
+            });
+        }
+        gettaskdata(@Model.Id);
+</script>

@@ -1,0 +1,11 @@
+﻿@{
+    var username = User.Identity.Name;
+    var SuccessMessage = "Login Successful!";
+
+}
+
+@* Created View component for the User Login Success Message *@
+    <div class="alert alert-success">
+        @SuccessMessage
+    </div>
+    <p><b>Welcome, @username! You are successfully logged in.</b></p>

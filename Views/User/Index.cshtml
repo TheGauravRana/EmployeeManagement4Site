@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Http
+@model EmployeeManagement.Models.UserModel
+@{
+    ViewData["Title"] = "User";
+}
+
+
+
+    <form asp-action="Index" method="post">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <input asp-for="Password" class="form-control" type="password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+<div class="text-center">
+    <h1>User Data</h1>
+
+    @* Used Partial view for the user data list *@
+    <partial name="_ListPartial" />
+
+
+
+</div>
+

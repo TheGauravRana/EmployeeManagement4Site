@@ -1,0 +1,132 @@
+﻿@model EmployeeWork;
+
+
+<h2>Create WorkTodo</h2>
+
+<form id="AddEmpWork" asp-action="Index" method="post">
+    <div class="form-group">
+        <label asp-for="EmployeeId" class="control-label"></label>
+        <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.emplist">
+            <option value="">-- Select Employee --</option>
+        </select>
+        <span asp-validation-for="EmployeeId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TodoTask" class="control-label"></label>
+        <textarea asp-for="TodoTask" class="form-control"></textarea>
+        <span asp-validation-for="TodoTask" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Remarks" class="control-label"></label>
+        <textarea asp-for="Remarks" class="form-control"></textarea>
+        <span asp-validation-for="Remarks" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<h2>All Employee Work List</h2>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Employee</th>
+            <th scope="col">Work To Do</th>
+            <th scope="col">Remarks</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    @* the table data will be appended by AJAX get *@
+    <tbody id="taskTableBody">
+    </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    /// AJAX
+
+    //Post to save new work
+    $(document).ready(function () {
+            $("#AddEmpWork").submit(function (e) {
+                e.preventDefault(); 
+                var form = $(this);
+                $.ajax({
+                    url: '@Url.Action("SaveData", "EmployeeWork")', 
+                    type: 'POST',
+                    data: form.serialize(),   
+                    success: function (response) {
+                        alert("Data saved successfully.");
+                        gettaskdata();
+                    },
+                    error: function (error) {
+                        alert("Error saving data");
+                    }
+                });
+            });
+        });
+        //updateStatus of the Employee workStatus to Done
+     function updateStatus(taskId) {
+        if(window.confirm("Do you Want to mark this task as Done")){
+        $.ajax({
+            url: '@Url.Action("UpdateWorkStatus", "EmployeeWork")', 
+            type: 'POST',
+            data: { id: taskId },
+            success: function (response) {
+                alert('Task status successfully updated to Done');
+                gettaskdata();
+            },
+            error: function () {
+                alert('Error updating the task status');
+            }
+        });
+        }
+    }
+    // redirect to Edit the Work
+    function EditWork(taskId) {
+        window.location = "/EmployeeWork/Edit/"+taskId
+    }
+    //Delete the Work
+    function DeleteWork(taskId) {
+        if(window.confirm("Do you Want Remove this task")){
+        $.ajax({
+            url: '@Url.Action("Delete", "EmployeeWork")', 
+            type: 'POST',
+            data: { id: taskId },
+            success: function (response) {
+                    alert('Task successfully Deleted');
+                gettaskdata();
+            },
+            error: function () {
+                alert('Error updating the task status');
+            }
+        });
+        }
+    }
+    //get all work data of all Employee only for admin
+    function gettaskdata(){
+    $.ajax({
+    url:'@Url.Action("GetAllWork", "EmployeeWork")',
+    type:'GET',
+    dataType:'json',
+       success: function (data) {
+           console.table(data);
+                    var html = '';
+                    $.each(data, function (index, task) {
+                        html += '<tr>';
+                        html += '<td>' + task.employeeName + '</td>';
+                        html += '<td>' + task.todoTask + '</td>';
+                        html += '<td>' + task.remarks + '</td>';
+                        html += '<td>' + task.workStatus + '</td>';
+                        html += '<td><button class="btn btn-sm btn-info" onclick="updateStatus(' + task.id + ')">Update Status</button> <button class="btn btn-sm btn-info" onclick="EditWork(' + task.id + ')">Edit</button> <button class="btn btn-sm btn-info" onclick="DeleteWork(' + task.id + ')">Delete</button></td>';
+                        html += '</tr>';
+                    });
+                    $('#taskTableBody').html(html);
+                },
+                error: function (xhr, status, error) {
+                    alert('Error fetching tasks: ' + error);
+                }
+            });
+        }
+        // call the function to get data on page load
+        gettaskdata();
+</script>

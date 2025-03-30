@@ -1,0 +1,35 @@
+﻿
+@{
+    // used diffrent layout for the Login Page
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Login";
+}
+
+<h3>Login</h3>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label for="userType">UserType</label>
+        <select name="userType" class="form-control">
+            <option value="Admin" class="form-control">Admin</option>
+            <option value="Employee" class="form-control">Employee</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

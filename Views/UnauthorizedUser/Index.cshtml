@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Access Denied";
+}
+@* unauthorized user request handeled  *@
+<div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Unauthorized Request</h4>
+        <p>Sorry, you do not have permission to access this page.</p>
+        <hr>
+        <p class="mb-0">Please contact your administrator if you believe this is an error.</p>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" onclick="window.history.back();">
+            Go Back
+        </button>
+    </div>
+</div>

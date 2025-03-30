@@ -1,0 +1,22 @@
+﻿@model UserViewModel
+
+<div class="text-center">
+
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="https://avatar.iran.liara.run/public" alt="Emp Image" asp-append-version="true" />
+        <div class="card-body">
+            <h5 class="card-title">User</h5>
+            <p>Id: @Model.Id</p>
+            <p>Name: @Model.Name</p>
+            <p>Password: @Model.Password</p>
+            <p>Email: @Model.Email</p>
+
+
+            <a asp-controller="User" asp-action="Index" class="btn btn-primary">Back</a>
+            <a asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            <a asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
+        </div>
+    </div>
+
+    
+    </div>

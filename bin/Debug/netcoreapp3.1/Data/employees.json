@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "Name": "Gray Potter 1",
+    "Email": "cd@mail.com",
+    "Password": "1234",
+    "Department": 0
+  },
+  {
+    "Id": 2,
+    "Name": "Hadassah Noble",
+    "Email": "abc@mail.com",
+    "Password": "12345",
+    "Department": 1
+  },
+  {
+    "Id": 3,
+    "Name": "rana",
+    "Email": "ranagaurav@mail.com",
+    "Password": "rana",
+    "Department": 0
+  }
+]

@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<div class="text-center">
+    <h1>Home</h1>
+    @* Used View Component for login Message *@
+    @await Component.InvokeAsync("LoginSuccess");
+
+    @* Used Partial View for table *@
+    <partial name="_ListPartial" />
+
+    
+
+</div>
+@section Scripts {
+    <script src="~/js/Home.js"></script>
+}
+

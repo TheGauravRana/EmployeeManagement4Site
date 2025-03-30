@@ -1,0 +1,37 @@
+﻿@model IEnumerable<EmployeeWorkView>
+
+@{
+    ViewData["Title"] = "Employee Work Report";
+}
+
+<h2>Employee Work Report</h2>
+@* Button to Export data in XML *@
+<p>
+    <a asp-action="ExportToXml" class="btn btn-primary">Export to XML</a>
+</p>
+@* Report view of all employee work data *@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Employee Name</th>
+            <th>Employee Email</th>
+            <th>Todo Task</th>
+            <th>Work Status</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.EmployeeName</td>
+                    <td>@item.EmployeeEmail</td>
+                    <td>@item.TodoTask</td>
+                    <td>@item.WorkStatus</td>
+                    <td>@item.Remarks</td>
+                </tr>
+        }
+    </tbody>
+</table>
