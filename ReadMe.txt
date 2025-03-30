@@ -1,3 +1,7 @@
+Updated the Readme File please go throug it before getting into the project
+
+-----------------------------------
+
 Objectives
 
 Your task is to enhance this basic ASP.NET Core 3.1 MVC project by implementing the following functionalities:
