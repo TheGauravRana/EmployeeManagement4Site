@@ -71,7 +71,7 @@ namespace EmployeeManagement.Controllers
             return View(_empVM);
         }
         //Edit Employee
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ViewResult Edit(int Id)
         {
@@ -87,10 +87,14 @@ namespace EmployeeManagement.Controllers
             }
         }
         //Update Employee
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public IActionResult Edit(Employee employeeModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(employeeModel);
+            }
             if (employeeModel.Id > 0 )
             {
                 _empRepo.Update(employeeModel);

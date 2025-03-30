@@ -85,7 +85,7 @@ namespace EmployeeManagement.DTO
             var emp = GetEmployee(employeeUpdate.Id);
             if (employeeUpdate != null)
             {
-                var dup = _empList.FirstOrDefault(d => d.Email.ToUpper() == employeeUpdate.Email.ToUpper());
+                var dup = _empList.FirstOrDefault(d => d.Email.ToUpper() == emp.Email.ToUpper() && d.Id != emp.Id);
                 if (dup != null)
                 {
                     return employeeUpdate;
