@@ -77,7 +77,7 @@ Key Points for overview
     Used Role based Authorization 
 
 As any other software it doesn't ends here but have n numbers of the posibilities to update and created more out of it as per the requirements and evolotion of the world of tech.
-This to fullfill the current given requirements i.e to use the above given feature of the .net core 3.1 because thinking process never ends and creativity never stops but have multiple levels and d/f checkpoints.
+This to fullfill the current given requirements i.e to use the above given feature of the .net core 3.1 because thinking never ends and creativity never stops but have multiple levels and d/f checkpoints.
 If there is any query or find any bug fell free to contact Mr. Gaurav Rana @gauravrana.vaims@gmail.coms
 
 
